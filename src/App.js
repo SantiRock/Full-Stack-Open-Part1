@@ -12,7 +12,7 @@ const App = () => {
     <Router>
     <Navbar />
         <Routes>
-          <Route exact path='/' element={<Anecdotes />} />
+          <Route exact path='/' element={<Courseinfo />} />
           <Route path='/courseinfo' element={<Courseinfo />} />
           <Route path='/unicafe' element={<Unicafe />} />
           <Route path='/anecdotes' element={<Anecdotes />} />
