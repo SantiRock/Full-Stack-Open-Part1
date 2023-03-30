@@ -16,6 +16,9 @@ const Anecdotes = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState({
+    0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0
+  })
 
   function getRandomValue() {
     return Math.floor(Math.random()*anecdotes.length)
@@ -23,15 +26,31 @@ const Anecdotes = () => {
 
   const nextAnecdote = () => () => {
     const randomVal = getRandomValue()
-    console.log(randomVal)
+    console.log('Anecdote Index: ' + randomVal)
     setSelected(randomVal)
   }
 
+  const voteClick = () => () => {
+    const newPoints = { ...points }
+    newPoints[selected] += 1
+    setPoints(newPoints)
+    console.log('Points: ', newPoints)
+  }
+
+  const pointsValues = Object.values(points)
+  let maxPoints = Math.max(...pointsValues)
+  let mostVotes = pointsValues.indexOf(maxPoints)
+
   return (
     <>
+      <h2>Anecdote of the day</h2>
       <div>{anecdotes[selected]}</div>
-      <Button text='vote' />
+      <p>Has {points[selected]} votes</p>
+      <Button text='vote' handleClick={voteClick()}/>
       <Button text='next anecdote' handleClick={nextAnecdote()}/>
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[mostVotes]}</p>
+      <p>Has {points[mostVotes]} votes</p>
     </>
   );
 };
